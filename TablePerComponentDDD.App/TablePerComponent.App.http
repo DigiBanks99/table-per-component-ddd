@@ -1,0 +1,27 @@
+@baseUrl = https://localhost:7294
+
+POST {{ baseUrl}}/pet/dog
+Content-Type: application/json
+
+{
+  "name": "Chewy",
+  "breed": "Schnauzer",
+  "color": "Grey",
+  "owner": {
+    "name": "Wilco",
+    "address": "Pretoria",
+    "phoneNumber": "1234567890"
+  }
+}
+
+###
+
+GET {{baseUrl}}/pet/1/dog HTTP/1.1
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/pet/2 HTTP/1.1
+Accept: application/json
+
+###
