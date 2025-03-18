@@ -1,4 +1,5 @@
 using System.Reflection;
+
 using Microsoft.EntityFrameworkCore;
 
 using TablePerComponent.App.Models;
@@ -31,6 +32,11 @@ public class PetDbContext(DbContextOptions options) : DbContext(options)
             .Properties<NonEmptyString>()
             .HaveConversion<NonEmptyStringValueConverter>()
             .HaveMaxLength(250);
+
+        configurationBuilder
+            .Properties<RichColor?>()
+            .HaveConversion<RichColorValueConverter>()
+            .HaveMaxLength(80);
 
         base.ConfigureConventions(configurationBuilder);
     }

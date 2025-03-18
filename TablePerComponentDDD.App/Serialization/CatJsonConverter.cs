@@ -20,7 +20,7 @@ internal sealed class CatJsonConverter : JsonConverter<Cat>
 
         NonEmptyString? name = null;
         NonEmptyString? breed = null;
-        NonEmptyString? color = null;
+        RichColor? color = null;
 
         while (reader.TokenType != JsonTokenType.EndObject)
         {
@@ -62,7 +62,7 @@ internal sealed class CatJsonConverter : JsonConverter<Cat>
         JsonSerializerOptions options,
         ref NonEmptyString? name,
         ref NonEmptyString? breed,
-        ref NonEmptyString? color)
+        ref RichColor? color)
     {
         if (reader.TokenType != JsonTokenType.PropertyName)
         {
@@ -86,7 +86,7 @@ internal sealed class CatJsonConverter : JsonConverter<Cat>
                 breed = JsonSerializer.Deserialize<NonEmptyString>(ref reader, options);
                 break;
             case "color":
-                color = JsonSerializer.Deserialize<NonEmptyString>(ref reader, options);
+                color = JsonSerializer.Deserialize<RichColor>(ref reader, options);
                 break;
             default:
                 reader.Skip();

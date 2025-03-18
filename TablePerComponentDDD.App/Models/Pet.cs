@@ -11,28 +11,27 @@ public abstract class Pet(int id, NonEmptyString name)
 public sealed class Dog : Pet
 {
     [Obsolete("Only to be used for EF Core until https://github.com/dotnet/efcore/issues/12078 is fixed.")]
-    private Dog(int id, NonEmptyString name, NonEmptyString breed, NonEmptyString? color) : base(id, name)
+    private Dog(int id, NonEmptyString name, NonEmptyString breed, RichColor? color) : base(id, name)
     {
         Breed = breed;
         Color = color;
-        Owner = null!;
     }
 
-    private Dog(NonEmptyString name, NonEmptyString breed, NonEmptyString? color, Owner owner) : base(0, name)
+    private Dog(NonEmptyString name, NonEmptyString breed, RichColor? color, Owner? owner) : base(0, name)
     {
         Breed = breed;
         Color = color;
         Owner = owner;
     }
 
-    public static Dog Create(NonEmptyString name, NonEmptyString breed, NonEmptyString? color, Owner owner)
+    public static Dog Create(NonEmptyString name, NonEmptyString breed, RichColor? color, Owner? owner)
     {
         return new Dog(name, breed, color, owner);
     }
 
     public NonEmptyString Breed { get; private init; }
-    public NonEmptyString? Color { get; private init; }
-    public Owner Owner { get; private set; }
+    public RichColor? Color { get; private init; }
+    public Owner? Owner { get; private set; }
 
     public override void Speak()
     {
@@ -48,25 +47,25 @@ public sealed class Dog : Pet
 public class Cat : Pet
 {
     [Obsolete("Only to be used for EF Core until https://github.com/dotnet/efcore/issues/12078 is fixed.")]
-    private Cat(int id, NonEmptyString name, NonEmptyString breed, NonEmptyString? color) : base(id, name)
+    private Cat(int id, NonEmptyString name, NonEmptyString breed, RichColor? color) : base(id, name)
     {
         Breed = breed;
         Color = color;
     }
 
-    private Cat(NonEmptyString name, NonEmptyString breed, NonEmptyString? color) : base(0, name)
+    private Cat(NonEmptyString name, NonEmptyString breed, RichColor? color) : base(0, name)
     {
         Breed = breed;
         Color = color;
     }
 
-    public static Cat Create(NonEmptyString name, NonEmptyString breed, NonEmptyString? color)
+    public static Cat Create(NonEmptyString name, NonEmptyString breed, RichColor? color)
     {
         return new Cat(name, breed, color);
     }
 
     public NonEmptyString Breed { get; private init; }
-    public NonEmptyString? Color { get; private init; }
+    public RichColor? Color { get; private init; }
 
     public override void Speak()
     {

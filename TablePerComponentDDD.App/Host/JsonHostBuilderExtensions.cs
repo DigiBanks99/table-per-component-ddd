@@ -8,6 +8,7 @@ internal static class JsonHostBuilderExtensions
     {
         builder.Services.ConfigureHttpJsonOptions(jsonOptions => {
             jsonOptions.SerializerOptions.Converters.Add(new NonEmptyStringJsonConverter());
+            jsonOptions.SerializerOptions.Converters.Add(new RichColorJsonConverter());
             jsonOptions.SerializerOptions.Converters.Add(new BirdJsonConverter());
             jsonOptions.SerializerOptions.Converters.Add(new CatJsonConverter());
             jsonOptions.SerializerOptions.Converters.Add(new DogJsonConverter());

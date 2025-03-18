@@ -20,7 +20,7 @@ internal sealed class DogJsonConverter : JsonConverter<Dog>
 
         NonEmptyString? name = null;
         NonEmptyString? breed = null;
-        NonEmptyString? color = null;
+        RichColor? color = null;
         Owner? owner = null;
 
         while (reader.TokenType != JsonTokenType.EndObject)
@@ -31,8 +31,7 @@ internal sealed class DogJsonConverter : JsonConverter<Dog>
         string[] missingProperties = new []
         {
             name is null ? "name" : string.Empty,
-            breed is null ? "breed" : string.Empty,
-            owner is null ? "owner" : string.Empty
+            breed is null ? "breed" : string.Empty
         }.Where(p => !string.IsNullOrEmpty(p)).ToArray();
 
         if (missingProperties.Any())
@@ -67,7 +66,7 @@ internal sealed class DogJsonConverter : JsonConverter<Dog>
         JsonSerializerOptions options,
         ref NonEmptyString? name,
         ref NonEmptyString? breed,
-        ref NonEmptyString? color,
+        ref RichColor? color,
         ref Owner? owner)
     {
         if (reader.TokenType != JsonTokenType.PropertyName)
@@ -92,7 +91,7 @@ internal sealed class DogJsonConverter : JsonConverter<Dog>
                 breed = JsonSerializer.Deserialize<NonEmptyString>(ref reader, options);
                 break;
             case "color":
-                color = JsonSerializer.Deserialize<NonEmptyString>(ref reader, options);
+                color = JsonSerializer.Deserialize<RichColor>(ref reader, options);
                 break;
             case "owner":
                 owner = JsonSerializer.Deserialize<Owner>(ref reader, options);
