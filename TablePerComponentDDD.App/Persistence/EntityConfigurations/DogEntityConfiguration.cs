@@ -20,12 +20,12 @@ internal sealed class DogEntityConfiguration : IEntityTypeConfiguration<Dog>
     {
         builder.WithOwner();
 
-        builder.Property(o => o.Name).HasMaxLength(50).IsRequired();
-        builder.Property(o => o.PhoneNumber).HasMaxLength(15).IsRequired();
+        builder.Property(o => o.Name).HasColumnName("Owner").HasMaxLength(50).IsRequired();
+        builder.Property(o => o.PhoneNumber).HasColumnName(nameof(Owner.PhoneNumber)).HasMaxLength(15).IsRequired();
         builder.OwnsOne(o => o.Address, ConfigureAddress);
-        builder.Property(o => o.IdType).HasConversion<IdTypeValueConverter>().HasMaxLength(25).IsRequired();
-        builder.Property(o => o.IdNumber).HasMaxLength(13);
-        builder.Property(o => o.PassportNumber).HasMaxLength(50);
+        builder.Property(o => o.IdType).HasColumnName(nameof(Owner.IdType)).HasConversion<IdTypeValueConverter>().HasMaxLength(25).IsRequired();
+        builder.Property(o => o.IdNumber).HasColumnName(nameof(Owner.IdNumber)).HasMaxLength(13);
+        builder.Property(o => o.PassportNumber).HasColumnName(nameof(Owner.PassportNumber)).HasMaxLength(50);
     }
 
     private static void ConfigureAddress(OwnedNavigationBuilder<Owner, Address> builder)
