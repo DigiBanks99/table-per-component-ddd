@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 using TablePerComponent.App.Models;
+using TablePerComponent.App.Persistence.ValueConverters;
 
 namespace TablePerComponent.App.Persistence.EntityConfigurations;
 
@@ -22,6 +23,9 @@ internal sealed class DogEntityConfiguration : IEntityTypeConfiguration<Dog>
         builder.Property(o => o.Name).HasMaxLength(50).IsRequired();
         builder.Property(o => o.PhoneNumber).HasMaxLength(15).IsRequired();
         builder.OwnsOne(o => o.Address, ConfigureAddress);
+        builder.Property(o => o.IdType).HasConversion<IdTypeValueConverter>().HasMaxLength(25).IsRequired();
+        builder.Property(o => o.IdNumber).HasMaxLength(13);
+        builder.Property(o => o.PassportNumber).HasMaxLength(50);
     }
 
     private static void ConfigureAddress(OwnedNavigationBuilder<Owner, Address> builder)

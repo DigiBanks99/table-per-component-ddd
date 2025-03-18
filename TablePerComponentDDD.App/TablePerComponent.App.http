@@ -18,6 +18,8 @@ Content-Type: application/json
       "province": "Gauteng",
       "postalCode": "0083"
     },
+    "idType": "ID",
+    "idNumber": "9001010001089",
     "phoneNumber": "1234567890"
   }
 }
