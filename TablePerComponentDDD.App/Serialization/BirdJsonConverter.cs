@@ -44,6 +44,9 @@ internal sealed class BirdJsonConverter : JsonConverter<Bird>
     {
         writer.WriteStartObject();
 
+        writer.WritePropertyName("id");
+        JsonSerializer.Serialize(writer, value.Id, options);
+
         writer.WritePropertyName("name");
         JsonSerializer.Serialize(writer, value.Name, options);
 
