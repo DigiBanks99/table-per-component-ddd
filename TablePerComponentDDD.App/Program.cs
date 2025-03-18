@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TablePerComponent.App.Host;
 using TablePerComponent.App.Models;
 using TablePerComponent.App.Persistence;
+using TablePerComponent.App.RouteHandlers;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -27,14 +28,14 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 RouteGroupBuilder petRouteGroup = app.MapGroup("pet");
-petRouteGroup.MapGet("/", async (PetDbContext dbContext) => await dbContext.Pets.ToListAsync()).WithName("GetPets");
-petRouteGroup.MapPost("/bird", async (PetDbContext dbContext, Bird pet) => { await dbContext.Birds.AddAsync(pet); await dbContext.SaveChangesAsync(); }).WithName("CreateBird");
-petRouteGroup.MapPost("/cat", async (PetDbContext dbContext, Cat pet) => { await dbContext.Cats.AddAsync(pet); await dbContext.SaveChangesAsync(); }).WithName("CreateCat");
-petRouteGroup.MapPost("/dog", async (PetDbContext dbContext, Dog pet) => { await dbContext.Dogs.AddAsync(pet); await dbContext.SaveChangesAsync(); }).WithName("CreateDog");
-petRouteGroup.MapGet("/{id}", async (PetDbContext dbContext, int id) => await dbContext.Pets.FindAsync(id)).WithName("GetPetById");
-petRouteGroup.MapGet("/{id}/dog", async (PetDbContext dbContext, int id) => await dbContext.Dogs.FindAsync(id)).WithName("GetDogById");
-petRouteGroup.MapGet("/{id}/cat", async (PetDbContext dbContext, int id) => await dbContext.Cats.FindAsync(id)).WithName("GetCatById");
-petRouteGroup.MapGet("/{id}/bird", async (PetDbContext dbContext, int id) => await dbContext.Birds.FindAsync(id)).WithName("GetBirdById");
+petRouteGroup.MapGet("/", PetRouteHandlers.HandleViewPets).WithName("GetPets");
+petRouteGroup.MapPost("/bird", BirdRouteHandlers.HandleAddPet).WithName("CreateBird");
+petRouteGroup.MapPost("/cat", CatRouteHandlers.HandleAddPet).WithName("CreateCat");
+petRouteGroup.MapPost("/dog", DogRouteHandlers.HandleAddPet).WithName("CreateDog");
+petRouteGroup.MapGet("/{id}", PetRouteHandlers.HandleViewPet).WithName("GetPetById");
+petRouteGroup.MapGet("/{id}/dog", DogRouteHandlers.HandleViewPet).WithName("GetDogById");
+petRouteGroup.MapGet("/{id}/cat", CatRouteHandlers.HandleViewPet).WithName("GetCatById");
+petRouteGroup.MapGet("/{id}/bird", BirdRouteHandlers.HandleViewPet).WithName("GetBirdById");
 
 app.Run();
 

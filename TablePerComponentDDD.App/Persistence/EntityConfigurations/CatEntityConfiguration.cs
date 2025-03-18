@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 using TablePerComponent.App.Models;
 
-namespace TablePerComponent.App.Persistence;
+namespace TablePerComponent.App.Persistence.EntityConfigurations;
 
 internal sealed class CatEntityConfiguration : IEntityTypeConfiguration<Cat>
 {

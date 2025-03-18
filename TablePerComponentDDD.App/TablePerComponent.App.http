@@ -1,5 +1,7 @@
 @baseUrl = https://localhost:7294
 
+### Add Dog
+
 POST {{ baseUrl}}/pet/dog
 Content-Type: application/json
 
@@ -9,19 +11,58 @@ Content-Type: application/json
   "color": "Grey",
   "owner": {
     "name": "Wilco",
-    "address": "Pretoria",
+    "address": {
+      "line1": "346 Anderson Street",
+      "line2": "Menlo Park",
+      "city": "Pretoria",
+      "province": "Gauteng",
+      "postalCode": "0083"
+    },
     "phoneNumber": "1234567890"
   }
 }
 
-###
+### Add Cat
+
+POST {{ baseUrl}}/pet/cat
+Content-Type: application/json
+
+{
+  "name": "Whiskers",
+  "breed": "Siamese",
+  "color": "White"
+}
+
+### Add Bird
+
+POST {{ baseUrl}}/pet/bird
+Content-Type: application/json
+
+{
+  "name": "Polly",
+  "species": "African Grey"
+}
+
+### Get All Pets
+GET {{baseUrl}}/pet HTTP/1.1
+Accept: application/json
+
+### Get Dog
 
 GET {{baseUrl}}/pet/1/dog HTTP/1.1
 Accept: application/json
 
-###
+### Get Pet
 
-GET {{baseUrl}}/pet/2 HTTP/1.1
+GET {{baseUrl}}/pet/1 HTTP/1.1
 Accept: application/json
 
-###
+### Get Cat
+
+GET {{baseUrl}}/pet/2/cat HTTP/1.1
+Accept: application/json
+
+### Get Bird
+
+GET {{baseUrl}}/pet/3/bird HTTP/1.1
+Accept: application/json
