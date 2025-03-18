@@ -23,10 +23,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    /*using var scope = app.Services.CreateScope();
+    using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<PetDbContext>();
-    await dbContext.Database.EnsureCreatedAsync();
-    await dbContext.Database.MigrateAsync();*/
+    //await dbContext.Database.EnsureCreatedAsync();
+    await dbContext.Database.MigrateAsync();
 
     app.MapOpenApi();
 }

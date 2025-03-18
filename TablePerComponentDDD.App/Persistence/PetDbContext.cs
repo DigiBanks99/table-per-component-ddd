@@ -1,6 +1,8 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+
 using TablePerComponent.App.Models;
+using TablePerComponent.App.Persistence.ValueConverters;
 
 namespace TablePerComponent.App.Persistence;
 
@@ -21,5 +23,15 @@ public class PetDbContext(DbContextOptions options) : DbContext(options)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
+    }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder
+            .Properties<NonEmptyString>()
+            .HaveConversion<NonEmptyStringValueConverter>()
+            .HaveMaxLength(250);
+
+        base.ConfigureConventions(configurationBuilder);
     }
 }

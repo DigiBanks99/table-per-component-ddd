@@ -3,15 +3,15 @@ namespace TablePerComponent.App.Models;
 public abstract class Pet
 {
     public int Id { get; init; }
-    public required string Name { get; init; }
+    public required NonEmptyString Name { get; init; }
 
     public abstract void Speak();
 }
 
 public class Dog : Pet
 {
-    public required string Breed { get; init; }
-    public string? Color { get; init; }
+    public required NonEmptyString Breed { get; init; }
+    public NonEmptyString? Color { get; init; }
     public required Owner Owner { get; init; }
 
     public override void Speak()
@@ -22,8 +22,9 @@ public class Dog : Pet
 
 public class Cat : Pet
 {
-    public required string Breed { get; init; }
-    public string? Color { get; init; }
+    public required NonEmptyString Breed { get; init; }
+    public NonEmptyString? Color { get; init; }
+
     public override void Speak()
     {
         Console.WriteLine("Miaw!");
@@ -32,7 +33,7 @@ public class Cat : Pet
 
 public class Bird : Pet
 {
-    public required string Species { get; init; }
+    public required NonEmptyString Species { get; init; }
     public override void Speak()
     {
         Console.WriteLine("Chirp!");
