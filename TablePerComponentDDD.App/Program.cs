@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-
 using TablePerComponent.App.Host;
-using TablePerComponent.App.Models;
-using TablePerComponent.App.Persistence;
 using TablePerComponent.App.RouteHandlers;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

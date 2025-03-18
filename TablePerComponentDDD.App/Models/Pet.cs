@@ -1,29 +1,72 @@
 namespace TablePerComponent.App.Models;
 
-public abstract class Pet
+public abstract class Pet(int id, NonEmptyString name)
 {
-    public int Id { get; init; }
-    public required NonEmptyString Name { get; init; }
+    public int Id { get; } = id;
+    public NonEmptyString Name { get; } = name;
 
     public abstract void Speak();
 }
 
-public class Dog : Pet
+public sealed class Dog : Pet
 {
-    public required NonEmptyString Breed { get; init; }
-    public NonEmptyString? Color { get; init; }
-    public required Owner Owner { get; init; }
+    [Obsolete("Only to be used for EF Core until https://github.com/dotnet/efcore/issues/12078 is fixed.")]
+    private Dog(int id, NonEmptyString name, NonEmptyString breed, NonEmptyString? color) : base(id, name)
+    {
+        Breed = breed;
+        Color = color;
+        Owner = null!;
+    }
+
+    private Dog(NonEmptyString name, NonEmptyString breed, NonEmptyString? color, Owner owner) : base(0, name)
+    {
+        Breed = breed;
+        Color = color;
+        Owner = owner;
+    }
+
+    public static Dog Create(NonEmptyString name, NonEmptyString breed, NonEmptyString? color, Owner owner)
+    {
+        return new Dog(name, breed, color, owner);
+    }
+
+    public NonEmptyString Breed { get; private init; }
+    public NonEmptyString? Color { get; private init; }
+    public Owner Owner { get; private set; }
 
     public override void Speak()
     {
         Console.WriteLine("Woof!");
     }
+
+    public void UpdateOwner(Owner owner)
+    {
+        Owner = owner;
+    }
 }
 
 public class Cat : Pet
 {
-    public required NonEmptyString Breed { get; init; }
-    public NonEmptyString? Color { get; init; }
+    [Obsolete("Only to be used for EF Core until https://github.com/dotnet/efcore/issues/12078 is fixed.")]
+    private Cat(int id, NonEmptyString name, NonEmptyString breed, NonEmptyString? color) : base(id, name)
+    {
+        Breed = breed;
+        Color = color;
+    }
+
+    private Cat(NonEmptyString name, NonEmptyString breed, NonEmptyString? color) : base(0, name)
+    {
+        Breed = breed;
+        Color = color;
+    }
+
+    public static Cat Create(NonEmptyString name, NonEmptyString breed, NonEmptyString? color)
+    {
+        return new Cat(name, breed, color);
+    }
+
+    public NonEmptyString Breed { get; private init; }
+    public NonEmptyString? Color { get; private init; }
 
     public override void Speak()
     {
@@ -33,7 +76,24 @@ public class Cat : Pet
 
 public class Bird : Pet
 {
-    public required NonEmptyString Species { get; init; }
+    [Obsolete("Only to be used for EF Core until https://github.com/dotnet/efcore/issues/12078 is fixed.")]
+    private Bird(int id, NonEmptyString name, NonEmptyString species) : base(id, name)
+    {
+        Species = species;
+    }
+
+    private Bird(NonEmptyString name, NonEmptyString species) : base(0, name)
+    {
+        Species = species;
+    }
+
+    public static Bird Create(NonEmptyString name, NonEmptyString species)
+    {
+        return new Bird(name, species);
+    }
+
+    public NonEmptyString Species { get; private init; }
+
     public override void Speak()
     {
         Console.WriteLine("Chirp!");

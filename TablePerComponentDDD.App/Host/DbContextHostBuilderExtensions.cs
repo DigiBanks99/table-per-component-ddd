@@ -21,7 +21,6 @@ internal static class DbContextHostBuilderExtensions
     {
         using var scope = app.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<PetDbContext>();
-        //await dbContext.Database.EnsureCreatedAsync();
         await dbContext.Database.MigrateAsync();
     }
 }
